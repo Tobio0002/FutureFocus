@@ -33,23 +33,35 @@
         .container.hidden {
             transform: translateY(50px);
             opacity: 0;
-            display: none; /* Fix to ensure hidden elements are not displayed */
+            display: none;
         }
 
         .container.visible {
             transform: translateY(0);
             opacity: 1;
-            display: block; /* Ensure visible elements are displayed */
+            display: block;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
             color: #4a90e2;
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 20px;
+            animation: fadeInTitle 1.2s ease forwards;
+        }
+
+        @keyframes fadeInTitle {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
         p {
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             margin-bottom: 20px;
         }
 
@@ -71,7 +83,7 @@
         }
 
         .question {
-            font-size: 1.5rem;
+            font-size: 1.7rem;
             color: #444;
             margin: 20px 0;
         }
@@ -132,8 +144,8 @@
 
     <!-- Landing Page -->
     <div class="container visible" id="landing-page">
-        <h1>Find Your Ideal Career Path</h1>
-        <p>Answer in-depth questions to discover the career best suited for you.</p>
+        <h1>Discover Your Career Path</h1>
+        <p>Answer insightful questions to find your perfect career.</p>
         <button class="button" onclick="startQuiz()">Start Quiz</button>
     </div>
 
@@ -147,7 +159,7 @@
 
     <!-- Results Page -->
     <div class="container hidden" id="result-page">
-        <h2>Your Ideal Career Path:</h2>
+        <h2>Top 3 Career Paths for You:</h2>
         <div id="result"></div>
         <button class="button" onclick="restartQuiz()">Retake Quiz</button>
     </div>
@@ -158,59 +170,12 @@
 
     <script>
         const questions = [
-            // Farming
             { question: "Do you enjoy working outdoors and growing plants?", options: ["Yes", "No"], type: "Farming" },
-            { question: "Are you comfortable working with animals?", options: ["Yes", "No"], type: "Farming" },
-            { question: "Would you be interested in managing large areas of farmland?", options: ["Yes", "No"], type: "Farming" },
-            { question: "Do you have a strong interest in sustainable practices?", options: ["Yes", "No"], type: "Farming" },
-
-            // Woodwork
             { question: "Do you enjoy building things with your hands?", options: ["Yes", "No"], type: "Woodwork" },
-            { question: "Do you have experience with tools and machinery?", options: ["Yes", "No"], type: "Woodwork" },
-            { question: "Are you interested in furniture design or carpentry?", options: ["Yes", "No"], type: "Woodwork" },
-            { question: "Do you have an eye for detail and precision?", options: ["Yes", "No"], type: "Woodwork" },
-
-            // Robotics
             { question: "Do you enjoy programming or building robots?", options: ["Yes", "No"], type: "Robotics" },
-            { question: "Are you excited by the idea of automation?", options: ["Yes", "No"], type: "Robotics" },
-            { question: "Do you like solving technical problems?", options: ["Yes", "No"], type: "Robotics" },
-            { question: "Do you enjoy working in teams to complete projects?", options: ["Yes", "No"], type: "Robotics" },
-
-            // Digital Literacy
             { question: "Do you enjoy working with computers?", options: ["Yes", "No"], type: "Digital Literacy" },
-            { question: "Are you skilled in using the internet and digital tools?", options: ["Yes", "No"], type: "Digital Literacy" },
-            { question: "Do you find it easy to learn new software?", options: ["Yes", "No"], type: "Digital Literacy" },
-            { question: "Are you interested in online marketing or social media?", options: ["Yes", "No"], type: "Digital Literacy" },
-
-            // Quantity Surveyor
             { question: "Do you enjoy working with numbers and budgets?", options: ["Yes", "No"], type: "Quantity Surveyor" },
-            { question: "Are you detail-oriented and good at calculations?", options: ["Yes", "No"], type: "Quantity Surveyor" },
-            { question: "Do you have an interest in construction projects?", options: ["Yes", "No"], type: "Quantity Surveyor" },
-            { question: "Do you like to analyze and assess project costs?", options: ["Yes", "No"], type: "Quantity Surveyor" },
-
-            // Art Work
-            { question: "Do you enjoy expressing yourself through art?", options: ["Yes", "No"], type: "Art Work" },
-            { question: "Are you interested in pursuing a career in visual arts or design?", options: ["Yes", "No"], type: "Art Work" },
-            { question: "Do you have a passion for creativity and imagination?", options: ["Yes", "No"], type: "Art Work" },
-            { question: "Would you like to explore graphic design or fine arts?", options: ["Yes", "No"], type: "Art Work" },
-
-            // Medicine
-            { question: "Are you passionate about helping others?", options: ["Yes", "No"], type: "Medicine" },
-            { question: "Do you want to diagnose and treat illnesses?", options: ["Yes", "No"], type: "Medicine" },
-            { question: "Are you comfortable working in high-pressure situations?", options: ["Yes", "No"], type: "Medicine" },
-            { question: "Do you enjoy studying the human body and health sciences?", options: ["Yes", "No"], type: "Medicine" },
-
-            // Software Development
-            { question: "Do you enjoy solving problems through coding?", options: ["Yes", "No"], type: "Software Development" },
-            { question: "Are you interested in building apps or websites?", options: ["Yes", "No"], type: "Software Development" },
-            { question: "Do you like working on projects independently?", options: ["Yes", "No"], type: "Software Development" },
-            { question: "Do you enjoy keeping up with technology trends?", options: ["Yes", "No"], type: "Software Development" },
-
-            // Business
-            { question: "Are you interested in managing people or resources?", options: ["Yes", "No"], type: "Business" },
-            { question: "Do you enjoy making strategic decisions?", options: ["Yes", "No"], type: "Business" },
-            { question: "Are you comfortable working with numbers and financials?", options: ["Yes", "No"], type: "Business" },
-            { question: "Do you like networking and building relationships?", options: ["Yes", "No"], type: "Business" },
+            { question: "Do you enjoy expressing yourself through art?", options: ["Yes", "No"], type: "Art Work" }
         ];
 
         let currentQuestionIndex = 0;
@@ -268,8 +233,10 @@
                 }
             });
 
-            const bestCareer = Object.keys(careerCount).reduce((a, b) => careerCount[a] > careerCount[b] ? a : b);
-            document.getElementById("result").innerText = bestCareer;
+            const sortedCareers = Object.keys(careerCount).sort((a, b) => careerCount[b] - careerCount[a]);
+            const top3Careers = sortedCareers.slice(0, 3);
+            
+            document.getElementById("result").innerHTML = top3Careers.map(career => `<p>${career}</p>`).join('');
         }
 
         function restartQuiz() {
