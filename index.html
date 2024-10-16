@@ -7,155 +7,155 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-    transition: background-color 0.3s ease;
-}
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            transition: background-color 0.3s ease;
+        }
 
-.container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 30px;
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    opacity: 0;
-    transform: translateY(50px);
-}
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            opacity: 0;
+            transform: translateY(50px);
+        }
 
-.container.hidden {
-    display: none;
-}
+        .hidden {
+            display: none;
+        }
 
-.container.visible {
-    display: block;
-    animation: fadeInUp 1s ease-out forwards;
-}
+        .visible {
+            display: block;
+            animation: fadeInUp 1s ease-out forwards;
+        }
 
-@keyframes fadeInUp {
-    0% { opacity: 0; transform: translateY(50px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
 
-h1 {
-    color: #4a90e2;
-    font-size: 3rem;
-    margin-bottom: 20px;
-    animation: fadeInTitle 1.2s ease forwards;
-}
+        h1 {
+            color: #4a90e2;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: fadeInTitle 1.2s ease forwards;
+        }
 
-@keyframes fadeInTitle {
-    0% { opacity: 0; transform: scale(0.8); }
-    100% { opacity: 1; transform: scale(1); }
-}
+        @keyframes fadeInTitle {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
 
-p {
-    font-size: 1.3rem;
-    margin-bottom: 20px;
-    animation: fadeInText 0.9s ease forwards;
-}
+        p {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            animation: fadeInText 0.9s ease forwards;
+        }
 
-@keyframes fadeInText {
-    0% { opacity: 0; transform: translateY(10px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
+        @keyframes fadeInText {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
 
-.button {
-    background-color: #4a90e2;
-    color: white;
-    padding: 14px 35px;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
+        .button {
+            background-color: #4a90e2;
+            color: white;
+            padding: 14px 35px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
 
-.button:hover {
-    background-color: #357ab8;
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-}
+        .button:hover {
+            background-color: #357ab8;
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
 
-.question {
-    font-size: 1.7rem;
-    color: #444;
-    margin: 20px 0;
-    animation: fadeInQuestion 0.7s ease forwards;
-}
+        .question {
+            font-size: 1.7rem;
+            color: #444;
+            margin: 20px 0;
+            animation: fadeInQuestion 0.7s ease forwards;
+        }
 
-@keyframes fadeInQuestion {
-    0% { opacity: 0; transform: translateX(-20px); }
-    100% { opacity: 1; transform: translateX(0); }
-}
+        @keyframes fadeInQuestion {
+            0% { opacity: 0; transform: translateX(-20px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
 
-.option {
-    margin: 15px 0;
-    animation: fadeInOption 0.8s ease forwards;
-}
+        .option {
+            margin: 15px 0;
+            animation: fadeInOption 0.8s ease forwards;
+        }
 
-@keyframes fadeInOption {
-    0% { opacity: 0; transform: translateX(20px); }
-    100% { opacity: 1; transform: translateX(0); }
-}
+        @keyframes fadeInOption {
+            0% { opacity: 0; transform: translateX(20px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
 
-.option button {
-    background-color: #e0e0e0;
-    border: 1px solid #ccc;
-    padding: 12px 25px;
-    width: 100%;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease, transform 0.2s ease;
-    border-radius: 12px;
-}
+        .option button {
+            background-color: #e0e0e0;
+            border: 1px solid #ccc;
+            padding: 12px 25px;
+            width: 100%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease, transform 0.2s ease;
+            border-radius: 12px;
+        }
 
-.option button:hover {
-    background-color: #4a90e2;
-    color: white;
-    border-color: #4a90e2;
-    transform: scale(1.02);
-}
+        .option button:hover {
+            background-color: #4a90e2;
+            color: white;
+            border-color: #4a90e2;
+            transform: scale(1.02);
+        }
 
-.progress-bar {
-    height: 10px;
-    background-color: #e0e0e0;
-    border-radius: 5px;
-    margin: 20px 0;
-    overflow: hidden;
-}
+        .progress-bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
 
-.progress {
-    height: 10px;
-    background-color: #00d47e;
-    border-radius: 5px;
-    width: 0;
-    transition: width 0.5s ease;
-}
+        .progress {
+            height: 10px;
+            background-color: #00d47e;
+            border-radius: 5px;
+            width: 0;
+            transition: width 0.5s ease;
+        }
 
-footer {
-    margin-top: 60px;
-    font-size: 0.9rem;
-    color: #666;
-    text-align: center;
-}
+        footer {
+            margin-top: 60px;
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+        }
 
-@media (max-width: 800px) {
-    .container {
-        margin: 20px;
-        padding: 20px;
-    }
-}
+        @media (max-width: 800px) {
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+        }
 
     </style>
 </head>
@@ -189,28 +189,23 @@ footer {
 
     <script>
         const questions = [
-    { question: "Do you enjoy working outdoors and growing plants?", options: ["Yes", "No"], type: "Farming" },
-    { question: "Do you enjoy building things with your hands?", options: ["Yes", "No"], type: "Woodwork" },
-    { question: "Do you enjoy programming or building robots?", options: ["Yes", "No"], type: "Robotics" },
-    { question: "Do you enjoy working with computers?", options: ["Yes", "No"], type: "Digital Literacy" },
-    { question: "Do you enjoy working with numbers and budgets?", options: ["Yes", "No"], type: "Quantity Surveyor" },
-    { question: "Do you enjoy expressing yourself through art?", options: ["Yes", "No"], type: "Art Work" },
-    { question: "Do you enjoy working with machines or engines?", options: ["Yes", "No"], type: "Mechanical Engineering" },
-    { question: "Do you enjoy solving puzzles or complex problems?", options: ["Yes", "No"], type: "Mathematics" },
-    { question: "Do you enjoy helping others and working with people?", options: ["Yes", "No"], type: "Healthcare" },
-    { question: "Do you enjoy teaching or sharing knowledge?", options: ["Yes", "No"], type: "Education" }
-];
-
+            { question: "Do you enjoy working outdoors and growing plants?", options: ["Yes", "No"], type: "Farming" },
+            { question: "Do you enjoy building things with your hands?", options: ["Yes", "No"], type: "Woodwork" },
+            { question: "Do you enjoy programming or building robots?", options: ["Yes", "No"], type: "Robotics" },
+            { question: "Do you enjoy working with computers?", options: ["Yes", "No"], type: "Digital Literacy" },
+            { question: "Do you enjoy working with numbers and budgets?", options: ["Yes", "No"], type: "Quantity Surveyor" },
+            { question: "Do you enjoy expressing yourself through art?", options: ["Yes", "No"], type: "Art Work" },
+            { question: "Do you enjoy working with machines or engines?", options: ["Yes", "No"], type: "Mechanical Engineering" },
+            { question: "Do you enjoy solving puzzles or complex problems?", options: ["Yes", "No"], type: "Mathematics" },
+            { question: "Do you enjoy helping others and working with people?", options: ["Yes", "No"], type: "Healthcare" },
+            { question: "Do you enjoy teaching or sharing knowledge?", options: ["Yes", "No"], type: "Education" }
         ];
 
         let currentQuestionIndex = 0;
         let answers = [];
 
         function startQuiz() {
-            document.getElementById("landing-page").classList.remove("visible");
-            document.getElementById("landing-page").classList.add("hidden");
-            document.getElementById("quiz-page").classList.remove("hidden");
-            document.getElementById("quiz-page").classList.add("visible");
+            togglePage('landing-page', 'quiz-page');
             loadQuestion();
         }
 
@@ -219,7 +214,7 @@ footer {
                 const questionElement = document.getElementById("quiz-container");
                 questionElement.innerHTML = `
                     <div class="question">${questions[currentQuestionIndex].question}</div>
-                    ${questions[currentQuestionIndex].options.map((option, index) => `
+                    ${questions[currentQuestionIndex].options.map((option) => `
                         <div class="option">
                             <button onclick="selectAnswer('${option}')">${option}</button>
                         </div>
@@ -232,45 +227,50 @@ footer {
         }
 
         function selectAnswer(answer) {
-            answers.push(answer);
+            answers.push({ question: questions[currentQuestionIndex].question, answer, type: questions[currentQuestionIndex].type });
             currentQuestionIndex++;
             loadQuestion();
         }
 
         function updateProgressBar() {
-            const progress = document.getElementById("progress");
-            const percentage = ((currentQuestionIndex / questions.length) * 100).toFixed(0);
-            progress.style.width = `${percentage}%`;
+            const progressElement = document.getElementById("progress");
+            const progressPercentage = (currentQuestionIndex / questions.length) * 100;
+            progressElement.style.width = `${progressPercentage}%`;
         }
 
         function calculateResult() {
-            document.getElementById("quiz-page").classList.remove("visible");
-            document.getElementById("quiz-page").classList.add("hidden");
-            document.getElementById("result-page").classList.remove("hidden");
-            document.getElementById("result-page").classList.add("visible");
-
-            const careerCount = {};
-
-            answers.forEach((answer, index) => {
-                if (answer === "Yes") {
-                    const careerType = questions[index].type;
-                    careerCount[careerType] = (careerCount[careerType] || 0) + 1;
+            const resultPage = document.getElementById("result");
+            const counts = {};
+            answers.forEach(answer => {
+                if (answer.answer === "Yes") {
+                    counts[answer.type] = (counts[answer.type] || 0) + 1;
                 }
             });
 
-            const sortedCareers = Object.keys(careerCount).sort((a, b) => careerCount[b] - careerCount[a]);
-            const top3Careers = sortedCareers.slice(0, 3);
-            
-            document.getElementById("result").innerHTML = top3Careers.map(career => `<p>${career}</p>`).join('');
+            const topThree = Object.entries(counts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 3)
+                .map(entry => entry[0]);
+
+            resultPage.innerHTML = topThree.length > 0 ? 
+                topThree.map((career) => `<p>${career}</p>`).join('') :
+                '<p>No clear career matches found. Try retaking the quiz!</p>';
+
+            togglePage('quiz-page', 'result-page');
         }
 
         function restartQuiz() {
             currentQuestionIndex = 0;
             answers = [];
-            document.getElementById("result-page").classList.remove("visible");
-            document.getElementById("result-page").classList.add("hidden");
-            document.getElementById("landing-page").classList.remove("hidden");
-            document.getElementById("landing-page").classList.add("visible");
+            togglePage('result-page', 'quiz-page');
+            loadQuestion();
+        }
+
+        function togglePage(hideId, showId) {
+            document.getElementById(hideId).classList.add('hidden');
+            document.getElementById(hideId).classList.remove('visible');
+            document.getElementById(showId).classList.remove('hidden');
+            document.getElementById(showId).classList.add('visible');
         }
     </script>
 </body>
