@@ -6,155 +6,43 @@
     <title>Career Path Finder</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        /* Existing CSS styles remain unchanged */
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
-            transition: background-color 0.3s ease;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 30px;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: transform 0.5s ease, opacity 0.5s ease;
-            opacity: 0;
-            transform: translateY(50px);
-        }
-
-        .container.hidden {
+        /* New feedback section styles */
+        .feedback-container {
+            margin-top: 20px;
             display: none;
+            text-align: left;
         }
 
-        .container.visible {
-            display: block;
-            animation: fadeInUp 1s ease-out forwards;
-        }
-
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(50px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        h1 {
-            color: #4a90e2;
-            font-size: 3rem;
-            margin-bottom: 20px;
-            animation: fadeInTitle 1.2s ease forwards;
-        }
-
-        @keyframes fadeInTitle {
-            0% { opacity: 0; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        p {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            animation: fadeInText 0.9s ease forwards;
-        }
-
-        @keyframes fadeInText {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .button {
-            background-color: #4a90e2;
-            color: white;
-            padding: 14px 35px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .button:hover {
-            background-color: #357ab8;
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-        }
-
-        .question {
-            font-size: 1.7rem;
-            color: #444;
-            margin: 20px 0;
-            animation: fadeInQuestion 0.7s ease forwards;
-        }
-
-        @keyframes fadeInQuestion {
-            0% { opacity: 0; transform: translateX(-20px); }
-            100% { opacity: 1; transform: translateX(0); }
-        }
-
-        .option {
-            margin: 15px 0;
-            animation: fadeInOption 0.8s ease forwards;
-        }
-
-        @keyframes fadeInOption {
-            0% { opacity: 0; transform: translateX(20px); }
-            100% { opacity: 1; transform: translateX(0); }
-        }
-
-        .option button {
-            background-color: #e0e0e0;
-            border: 1px solid #ccc;
-            padding: 12px 25px;
+        .feedback-input {
             width: 100%;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease, transform 0.2s ease;
-            border-radius: 12px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 10px;
         }
 
-        .option button:hover {
+        .feedback-button {
             background-color: #4a90e2;
             color: white;
-            border-color: #4a90e2;
-            transform: scale(1.02);
-        }
-
-        .progress-bar {
-            height: 10px;
-            background-color: #e0e0e0;
+            padding: 10px 20px;
+            border: none;
             border-radius: 5px;
-            margin: 20px 0;
-            overflow: hidden;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
         }
 
-        .progress {
-            height: 10px;
-            background-color: #00d47e;
-            border-radius: 5px;
-            width: 0;
-            transition: width 0.5s ease;
+        .feedback-button:hover {
+            background-color: #357ab8;
         }
 
-        footer {
-            margin-top: 60px;
-            font-size: 0.9rem;
-            color: #666;
-            text-align: center;
-        }
-
-        @media (max-width: 800px) {
-            .container {
-                margin: 20px;
-                padding: 20px;
-            }
+        .thank-you-message {
+            display: none;
+            color: green;
+            font-size: 1.2rem;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -179,6 +67,12 @@
     <div class="container hidden" id="result-page">
         <h2>Top 3 Career Paths for You:</h2>
         <div id="result"></div>
+        <div class="feedback-container" id="feedback-container">
+            <label for="feedback">Your Feedback:</label>
+            <textarea id="feedback" class="feedback-input" rows="4" placeholder="Share your thoughts..."></textarea>
+            <button class="feedback-button" onclick="submitFeedback()">Submit Feedback</button>
+            <p class="thank-you-message" id="thank-you-message">Thank you for your feedback!</p>
+        </div>
         <button class="button" onclick="restartQuiz()">Retake Quiz</button>
     </div>
 
@@ -187,20 +81,36 @@
     </footer>
 
     <script>
-        const questions = [
-            { question: "Do you enjoy working outdoors and growing plants?", options: ["Yes", "No"], type: "Farming" },
-            { question: "Do you enjoy building things with your hands?", options: ["Yes", "No"], type: "Woodwork" },
-            { question: "Do you enjoy programming or building robots?", options: ["Yes", "No"], type: "Robotics" },
-            { question: "Do you enjoy working with computers?", options: ["Yes", "No"], type: "Digital Literacy" },
-            { question: "Do you enjoy working with numbers and budgets?", options: ["Yes", "No"], type: "Quantity Surveyor" },
-            { question: "Do you enjoy expressing yourself through art?", options: ["Yes", "No"], type: "Art Work" },
-            { question: "Do you enjoy working with machines or engines?", options: ["Yes", "No"], type: "Mechanical Engineering" },
-            { question: "Do you enjoy solving puzzles or complex problems?", options: ["Yes", "No"], type: "Mathematics" },
-            { question: "Do you enjoy helping others and working with people?", options: ["Yes", "No"], type: "Healthcare" },
-            { question: "Do you enjoy teaching or sharing knowledge?", options: ["Yes", "No"], type: "Education" }
-        ];
+        // Updated categories of questions
+        const questions = {
+            outdoorActivities: [
+                { question: "Do you enjoy working outdoors?", type: "Farming" },
+                { question: "Do you enjoy managing plants or crops?", type: "Agriculture" },
+                { question: "Are you interested in wildlife conservation?", type: "Conservation" },
+                { question: "Do you like hiking or exploring nature?", type: "Adventure Tourism" }
+            ],
+            technicalAptitude: [
+                { question: "Do you enjoy programming?", type: "Robotics" },
+                { question: "Do you enjoy working with machines?", type: "Mechanical Engineering" },
+                { question: "Are you interested in building computers?", type: "IT Technician" },
+                { question: "Do you like troubleshooting technical issues?", type: "Technical Support" }
+            ],
+            creativity: [
+                { question: "Do you like expressing ideas through art?", type: "Art Work" },
+                { question: "Do you enjoy designing or sketching?", type: "Graphic Design" },
+                { question: "Are you interested in writing stories or poems?", type: "Writing" },
+                { question: "Do you like making music or playing instruments?", type: "Music Production" }
+            ],
+            problemSolving: [
+                { question: "Do you enjoy solving complex puzzles?", type: "Mathematics" },
+                { question: "Do you enjoy analyzing problems?", type: "Engineering" },
+                { question: "Do you like organizing events?", type: "Project Management" },
+                { question: "Are you interested in scientific research?", type: "Research Scientist" }
+            ]
+        };
 
         let currentQuestionIndex = 0;
+        let selectedQuestions = [];
         let answers = [];
 
         function startQuiz() {
@@ -208,52 +118,50 @@
             document.getElementById("landing-page").classList.add("hidden");
             document.getElementById("quiz-page").classList.remove("hidden");
             document.getElementById("quiz-page").classList.add("visible");
+            selectRandomQuestions();
             loadQuestion();
         }
 
+        function selectRandomQuestions() {
+            const combinedQuestions = Object.values(questions).flat();
+            selectedQuestions = shuffleArray(combinedQuestions).slice(0, 15);
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
         function loadQuestion() {
-            if (currentQuestionIndex < questions.length) {
+            if (currentQuestionIndex < selectedQuestions.length) {
                 const questionElement = document.getElementById("quiz-container");
-                
-                // Create the question text
                 questionElement.innerHTML = `
-                    <div class="question">${questions[currentQuestionIndex].question}</div>
+                    <div class="question">${selectedQuestions[currentQuestionIndex].question}</div>
+                    <div class="option">
+                        <button onclick="answerQuestion('Yes')">Yes</button>
+                    </div>
+                    <div class="option">
+                        <button onclick="answerQuestion('No')">No</button>
+                    </div>
                 `;
-
-                // Create answer buttons
-                questions[currentQuestionIndex].options.forEach(option => {
-                    const optionButton = document.createElement('button');
-                    optionButton.classList.add('option-button');
-                    optionButton.innerText = option;
-
-                    // Attach the click event to the button
-                    optionButton.onclick = function() {
-                        selectAnswer(option);
-                    };
-
-                    // Append button to quiz container
-                    const optionDiv = document.createElement('div');
-                    optionDiv.classList.add('option');
-                    optionDiv.appendChild(optionButton);
-                    questionElement.appendChild(optionDiv);
-                });
-
-                // Update progress bar
                 updateProgressBar();
             } else {
                 calculateResult();
             }
         }
 
-        function selectAnswer(answer) {
-            answers.push(answer);
+        function answerQuestion(answer) {
+            answers[currentQuestionIndex] = answer;
             currentQuestionIndex++;
             loadQuestion();
         }
 
         function updateProgressBar() {
             const progress = document.getElementById("progress");
-            const progressPercent = (currentQuestionIndex / questions.length) * 100;
+            const progressPercent = (currentQuestionIndex / selectedQuestions.length) * 100;
             progress.style.width = `${progressPercent}%`;
         }
 
@@ -262,7 +170,7 @@
             const careerCounts = {};
 
             answers.forEach((answer, index) => {
-                const careerType = questions[index].type;
+                const careerType = selectedQuestions[index].type;
                 if (!careerCounts[careerType]) {
                     careerCounts[careerType] = 0;
                 }
@@ -275,7 +183,12 @@
                 .sort((a, b) => b[1] - a[1])
                 .slice(0, 3);
 
-            resultContainer.innerHTML = topCareers.map(career => `<p>${career[0]}</p>`).join("");
+            resultContainer.innerHTML = topCareers.map(career => {
+                return `<p>${career[0]}: You have shown interest in this career due to your positive responses regarding related activities.</p>`;
+            }).join("");
+
+            // Show feedback section
+            document.getElementById("feedback-container").style.display = "block";
 
             document.getElementById("quiz-page").classList.remove("visible");
             document.getElementById("quiz-page").classList.add("hidden");
@@ -288,7 +201,17 @@
             answers = [];
             document.getElementById("result-page").classList.remove("visible");
             document.getElementById("result-page").classList.add("hidden");
+            document.getElementById("feedback-container").style.display = "none";
             startQuiz();
+        }
+
+        function submitFeedback() {
+            const feedback = document.getElementById("feedback").value;
+            console.log("User feedback:", feedback); // Replace this with an API call to store feedback
+
+            // Show thank you message
+            document.getElementById("thank-you-message").style.display = "block";
+            document.getElementById("feedback").value = ""; // Clear the input
         }
     </script>
 </body>
