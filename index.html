@@ -32,11 +32,11 @@
             transform: translateY(50px);
         }
 
-        .hidden {
+        .container.hidden {
             display: none;
         }
 
-        .visible {
+        .container.visible {
             display: block;
             animation: fadeInUp 1s ease-out forwards;
         }
@@ -156,7 +156,6 @@
                 padding: 20px;
             }
         }
-
     </style>
 </head>
 <body>
@@ -205,21 +204,41 @@
         let answers = [];
 
         function startQuiz() {
-            togglePage('landing-page', 'quiz-page');
+            document.getElementById("landing-page").classList.remove("visible");
+            document.getElementById("landing-page").classList.add("hidden");
+            document.getElementById("quiz-page").classList.remove("hidden");
+            document.getElementById("quiz-page").classList.add("visible");
             loadQuestion();
         }
 
         function loadQuestion() {
             if (currentQuestionIndex < questions.length) {
                 const questionElement = document.getElementById("quiz-container");
+                
+                // Create the question text
                 questionElement.innerHTML = `
                     <div class="question">${questions[currentQuestionIndex].question}</div>
-                    ${questions[currentQuestionIndex].options.map((option) => `
-                        <div class="option">
-                            <button onclick="selectAnswer('${option}')">${option}</button>
-                        </div>
-                    `).join('')}
                 `;
+
+                // Create answer buttons
+                questions[currentQuestionIndex].options.forEach(option => {
+                    const optionButton = document.createElement('button');
+                    optionButton.classList.add('option-button');
+                    optionButton.innerText = option;
+
+                    // Attach the click event to the button
+                    optionButton.onclick = function() {
+                        selectAnswer(option);
+                    };
+
+                    // Append button to quiz container
+                    const optionDiv = document.createElement('div');
+                    optionDiv.classList.add('option');
+                    optionDiv.appendChild(optionButton);
+                    questionElement.appendChild(optionDiv);
+                });
+
+                // Update progress bar
                 updateProgressBar();
             } else {
                 calculateResult();
@@ -227,50 +246,49 @@
         }
 
         function selectAnswer(answer) {
-            answers.push({ question: questions[currentQuestionIndex].question, answer, type: questions[currentQuestionIndex].type });
+            answers.push(answer);
             currentQuestionIndex++;
             loadQuestion();
         }
 
         function updateProgressBar() {
-            const progressElement = document.getElementById("progress");
-            const progressPercentage = (currentQuestionIndex / questions.length) * 100;
-            progressElement.style.width = `${progressPercentage}%`;
+            const progress = document.getElementById("progress");
+            const progressPercent = (currentQuestionIndex / questions.length) * 100;
+            progress.style.width = `${progressPercent}%`;
         }
 
         function calculateResult() {
-            const resultPage = document.getElementById("result");
-            const counts = {};
-            answers.forEach(answer => {
-                if (answer.answer === "Yes") {
-                    counts[answer.type] = (counts[answer.type] || 0) + 1;
+            const resultContainer = document.getElementById("result");
+            const careerCounts = {};
+
+            answers.forEach((answer, index) => {
+                const careerType = questions[index].type;
+                if (!careerCounts[careerType]) {
+                    careerCounts[careerType] = 0;
+                }
+                if (answer === "Yes") {
+                    careerCounts[careerType]++;
                 }
             });
 
-            const topThree = Object.entries(counts)
+            const topCareers = Object.entries(careerCounts)
                 .sort((a, b) => b[1] - a[1])
-                .slice(0, 3)
-                .map(entry => entry[0]);
+                .slice(0, 3);
 
-            resultPage.innerHTML = topThree.length > 0 ? 
-                topThree.map((career) => `<p>${career}</p>`).join('') :
-                '<p>No clear career matches found. Try retaking the quiz!</p>';
+            resultContainer.innerHTML = topCareers.map(career => `<p>${career[0]}</p>`).join("");
 
-            togglePage('quiz-page', 'result-page');
+            document.getElementById("quiz-page").classList.remove("visible");
+            document.getElementById("quiz-page").classList.add("hidden");
+            document.getElementById("result-page").classList.remove("hidden");
+            document.getElementById("result-page").classList.add("visible");
         }
 
         function restartQuiz() {
             currentQuestionIndex = 0;
             answers = [];
-            togglePage('result-page', 'quiz-page');
-            loadQuestion();
-        }
-
-        function togglePage(hideId, showId) {
-            document.getElementById(hideId).classList.add('hidden');
-            document.getElementById(hideId).classList.remove('visible');
-            document.getElementById(showId).classList.remove('hidden');
-            document.getElementById(showId).classList.add('visible');
+            document.getElementById("result-page").classList.remove("visible");
+            document.getElementById("result-page").classList.add("hidden");
+            startQuiz();
         }
     </script>
 </body>
