@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Path Finder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            transition: background-color 0.3s ease;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        .container.hidden {
+            transform: translateY(50px);
+            opacity: 0;
+            display: none; /* Fix to ensure hidden elements are not displayed */
+        }
+
+        .container.visible {
+            transform: translateY(0);
+            opacity: 1;
+            display: block; /* Ensure visible elements are displayed */
+        }
+
+        h1 {
+            color: #4a90e2;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            background-color: #4a90e2;
+            color: white;
+            padding: 14px 35px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .button:hover {
+            background-color: #357ab8;
+            transform: translateY(-4px);
+        }
+
+        .question {
+            font-size: 1.5rem;
+            color: #444;
+            margin: 20px 0;
+        }
+
+        .option {
+            margin: 15px 0;
+        }
+
+        .option button {
+            background-color: #e0e0e0;
+            border: 1px solid #ccc;
+            padding: 12px 25px;
+            width: 100%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+
+        .option button:hover {
+            background-color: #4a90e2;
+            color: white;
+            border-color: #4a90e2;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 10px;
+            background-color: #00d47e;
+            border-radius: 5px;
+            width: 0;
+            transition: width 0.3s ease;
+        }
+
+        footer {
+            margin-top: 60px;
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+        }
+
+        @media (max-width: 800px) {
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Landing Page -->
+    <div class="container visible" id="landing-page">
+        <h1>Find Your Ideal Career Path</h1>
+        <p>Answer in-depth questions to discover the career best suited for you.</p>
+        <button class="button" onclick="startQuiz()">Start Quiz</button>
+    </div>
+
+    <!-- Quiz Page -->
+    <div class="container hidden" id="quiz-page">
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        <div id="quiz-container"></div>
+    </div>
+
+    <!-- Results Page -->
+    <div class="container hidden" id="result-page">
+        <h2>Your Ideal Career Path:</h2>
+        <div id="result"></div>
+        <button class="button" onclick="restartQuiz()">Retake Quiz</button>
+    </div>
+
+    <footer>
+        &copy; 2024 Career Path Finder | All Rights Reserved
+    </footer>
+
+    <script>
+        const questions = [
+            // Farming
+            { question: "Do you enjoy working outdoors and growing plants?", options: ["Yes", "No"], type: "Farming" },
+            { question: "Are you comfortable working with animals?", options: ["Yes", "No"], type: "Farming" },
+            { question: "Would you be interested in managing large areas of farmland?", options: ["Yes", "No"], type: "Farming" },
+            { question: "Do you have a strong interest in sustainable practices?", options: ["Yes", "No"], type: "Farming" },
+
+            // Woodwork
+            { question: "Do you enjoy building things with your hands?", options: ["Yes", "No"], type: "Woodwork" },
+            { question: "Do you have experience with tools and machinery?", options: ["Yes", "No"], type: "Woodwork" },
+            { question: "Are you interested in furniture design or carpentry?", options: ["Yes", "No"], type: "Woodwork" },
+            { question: "Do you have an eye for detail and precision?", options: ["Yes", "No"], type: "Woodwork" },
+
+            // Robotics
+            { question: "Do you enjoy programming or building robots?", options: ["Yes", "No"], type: "Robotics" },
+            { question: "Are you excited by the idea of automation?", options: ["Yes", "No"], type: "Robotics" },
+            { question: "Do you like solving technical problems?", options: ["Yes", "No"], type: "Robotics" },
+            { question: "Do you enjoy working in teams to complete projects?", options: ["Yes", "No"], type: "Robotics" },
+
+            // Digital Literacy
+            { question: "Do you enjoy working with computers?", options: ["Yes", "No"], type: "Digital Literacy" },
+            { question: "Are you skilled in using the internet and digital tools?", options: ["Yes", "No"], type: "Digital Literacy" },
+            { question: "Do you find it easy to learn new software?", options: ["Yes", "No"], type: "Digital Literacy" },
+            { question: "Are you interested in online marketing or social media?", options: ["Yes", "No"], type: "Digital Literacy" },
+
+            // Quantity Surveyor
+            { question: "Do you enjoy working with numbers and budgets?", options: ["Yes", "No"], type: "Quantity Surveyor" },
+            { question: "Are you detail-oriented and good at calculations?", options: ["Yes", "No"], type: "Quantity Surveyor" },
+            { question: "Do you have an interest in construction projects?", options: ["Yes", "No"], type: "Quantity Surveyor" },
+            { question: "Do you like to analyze and assess project costs?", options: ["Yes", "No"], type: "Quantity Surveyor" },
+
+            // Art Work
+            { question: "Do you enjoy expressing yourself through art?", options: ["Yes", "No"], type: "Art Work" },
+            { question: "Are you interested in pursuing a career in visual arts or design?", options: ["Yes", "No"], type: "Art Work" },
+            { question: "Do you have a passion for creativity and imagination?", options: ["Yes", "No"], type: "Art Work" },
+            { question: "Would you like to explore graphic design or fine arts?", options: ["Yes", "No"], type: "Art Work" },
+
+            // Medicine
+            { question: "Are you passionate about helping others?", options: ["Yes", "No"], type: "Medicine" },
+            { question: "Do you want to diagnose and treat illnesses?", options: ["Yes", "No"], type: "Medicine" },
+            { question: "Are you comfortable working in high-pressure situations?", options: ["Yes", "No"], type: "Medicine" },
+            { question: "Do you enjoy studying the human body and health sciences?", options: ["Yes", "No"], type: "Medicine" },
+
+            // Software Development
+            { question: "Do you enjoy solving problems through coding?", options: ["Yes", "No"], type: "Software Development" },
+            { question: "Are you interested in building apps or websites?", options: ["Yes", "No"], type: "Software Development" },
+            { question: "Do you like working on projects independently?", options: ["Yes", "No"], type: "Software Development" },
+            { question: "Do you enjoy keeping up with technology trends?", options: ["Yes", "No"], type: "Software Development" },
+
+            // Business
+            { question: "Are you interested in managing people or resources?", options: ["Yes", "No"], type: "Business" },
+            { question: "Do you enjoy making strategic decisions?", options: ["Yes", "No"], type: "Business" },
+            { question: "Are you comfortable working with numbers and financials?", options: ["Yes", "No"], type: "Business" },
+            { question: "Do you like networking and building relationships?", options: ["Yes", "No"], type: "Business" },
+        ];
+
+        let currentQuestionIndex = 0;
+        let answers = [];
+
+        function startQuiz() {
+            document.getElementById("landing-page").classList.remove("visible");
+            document.getElementById("landing-page").classList.add("hidden");
+            document.getElementById("quiz-page").classList.remove("hidden");
+            document.getElementById("quiz-page").classList.add("visible");
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                const questionElement = document.getElementById("quiz-container");
+                questionElement.innerHTML = `
+                    <div class="question">${questions[currentQuestionIndex].question}</div>
+                    ${questions[currentQuestionIndex].options.map((option, index) => `
+                        <div class="option">
+                            <button onclick="selectAnswer('${option}')">${option}</button>
+                        </div>
+                    `).join('')}
+                `;
+                updateProgressBar();
+            } else {
+                calculateResult();
+            }
+        }
+
+        function selectAnswer(answer) {
+            answers.push(answer);
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function updateProgressBar() {
+            const progress = document.getElementById("progress");
+            const percentage = ((currentQuestionIndex / questions.length) * 100).toFixed(0);
+            progress.style.width = `${percentage}%`;
+        }
+
+        function calculateResult() {
+            document.getElementById("quiz-page").classList.remove("visible");
+            document.getElementById("quiz-page").classList.add("hidden");
+            document.getElementById("result-page").classList.remove("hidden");
+            document.getElementById("result-page").classList.add("visible");
+
+            const careerCount = {};
+
+            answers.forEach((answer, index) => {
+                if (answer === "Yes") {
+                    const careerType = questions[index].type;
+                    careerCount[careerType] = (careerCount[careerType] || 0) + 1;
+                }
+            });
+
+            const bestCareer = Object.keys(careerCount).reduce((a, b) => careerCount[a] > careerCount[b] ? a : b);
+            document.getElementById("result").innerText = bestCareer;
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            answers = [];
+            document.getElementById("result-page").classList.remove("visible");
+            document.getElementById("result-page").classList.add("hidden");
+            document.getElementById("landing-page").classList.remove("hidden");
+            document.getElementById("landing-page").classList.add("visible");
+        }
+    </script>
+</body>
+</html>
