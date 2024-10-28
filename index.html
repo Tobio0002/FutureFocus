@@ -9,7 +9,7 @@
         /* General Styles */
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #e3f2fd, #f0f2f5);
+            background-color: #f0f2f5;
             color: #333;
             margin: 0;
             padding: 0;
@@ -17,148 +17,194 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            animation: fadeIn 1s ease-in;
-        }
-
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
         }
 
         .container {
-            width: 100%;
-            max-width: 1000px;
+            max-width: 600px;
+            margin: 20px;
             padding: 20px;
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
             text-align: center;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.5s ease;
         }
 
-        h1 {
+        .container.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        h1, h2 {
             color: #2979ff;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 700;
-            margin-bottom: 20px;
         }
 
-        .logo {
-            max-width: 200px;
-            margin: 0 auto 20px auto;
-            display: block;
-        }
-
-        .question-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .question-item {
-            background-color: #f9f9f9;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            cursor: pointer;
-        }
-
-        .question-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .question-image {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-bottom: 2px solid #ddd;
-        }
-
-        .question-text {
-            padding: 15px;
-            font-weight: 600;
-            color: #333;
-            text-align: center;
-            font-size: 1rem;
+        p {
+            margin: 20px 0;
+            color: #555;
         }
 
         button {
-            background: linear-gradient(45deg, #2979ff, #1e63d3);
+            background-color: #2979ff;
             color: white;
-            padding: 10px 20px;
             border: none;
+            padding: 12px 30px;
             border-radius: 50px;
             cursor: pointer;
             font-size: 1rem;
-            font-weight: 600;
-            box-shadow: 0 8px 20px rgba(41, 121, 255, 0.4);
+            font-weight: 500;
+            box-shadow: 0 6px 15px rgba(41, 121, 255, 0.3);
             transition: all 0.3s ease;
-            margin-top: 20px;
         }
 
         button:hover {
-            background: linear-gradient(45deg, #1e63d3, #2979ff);
-            box-shadow: 0 10px 25px rgba(41, 121, 255, 0.5);
+            background-color: #1e63d3;
+            box-shadow: 0 8px 25px rgba(41, 121, 255, 0.4);
             transform: translateY(-3px);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 25px;
+            margin-bottom: 20px;
+        }
+
+        .progress {
+            width: 0%;
+            height: 10px;
+            background-color: #2979ff;
+            border-radius: 25px;
+            transition: width 0.4s ease-in-out;
+        }
+
+        /* Question and Image Styles */
+        .question-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .question {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .question-image {
+            width: 80%;
+            max-width: 400px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #888;
         }
     </style>
 </head>
 <body>
 
-    <div class="container" id="home-page">
-        <img src="FutureFocus.png" alt="Future Focus Logo" class="logo">
+    <!-- Landing Page -->
+    <div class="container visible" id="landing-page">
+        <img src="path-to-your-logo/FutureFocus.png" alt="Future Focus Logo" style="width: 150px; margin-bottom: 20px;">
         <h1>Discover Your Career Path</h1>
-        <div class="question-grid">
-            <!-- Question Items with Images and Text Labels -->
-            <div class="question-item" onclick="startQuiz('Art')">
-                <img src="art.png" alt="Art" class="question-image">
-                <div class="question-text">Art</div>
-            </div>
-            <div class="question-item" onclick="startQuiz('Digital Literacy')">
-                <img src="computer.png" alt="Computer" class="question-image">
-                <div class="question-text">Digital Literacy</div>
-            </div>
-            <div class="question-item" onclick="startQuiz('Farming')">
-                <img src="hiking.png" alt="Hiking" class="question-image">
-                <div class="question-text">Farming</div>
-            </div>
-            <div class="question-item" onclick="startQuiz('Woodwork')">
-                <img src="machine.png" alt="Machine" class="question-image">
-                <div class="question-text">Woodwork</div>
-            </div>
-            <div class="question-item" onclick="startQuiz('Sound Tech')">
-                <img src="music.png" alt="Music" class="question-image">
-                <div class="question-text">Sound Tech</div>
-            </div>
-            <div class="question-item" onclick="startQuiz('Programming')">
-                <img src="programing.png" alt="Programming" class="question-image">
-                <div class="question-text">Programming</div>
-            </div>
-            <div class="question-item" onclick="startQuiz('Sketching')">
-                <img src="sketch.png" alt="Sketch" class="question-image">
-                <div class="question-text">Sketching</div>
-            </div>
-            <div class="question-item" onclick="startQuiz('Troubleshooting')">
-                <img src="troubleshooting.png" alt="Troubleshooting" class="question-image">
-                <div class="question-text">Troubleshooting</div>
-            </div>
-            <div class="question-item" onclick="startQuiz('Wildlife Management')">
-                <img src="wildlife.png" alt="Wildlife" class="question-image">
-                <div class="question-text">Wildlife Management</div>
-            </div>
-        </div>
+        <p>Answer insightful questions to find your perfect career.</p>
         <button onclick="startQuiz()">Start Quiz</button>
     </div>
 
+    <!-- Quiz Page -->
+    <div class="container hidden" id="quiz-page">
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        <div id="quiz-container"></div>
+    </div>
+
+    <!-- Results Page -->
+    <div class="container hidden" id="result-page">
+        <h2>Recommended Career Path:</h2>
+        <div id="result"></div>
+        <button onclick="restartQuiz()">Retake Quiz</button>
+    </div>
+
+    <footer>
+        &copy; 2024 Career Path Finder | All Rights Reserved
+    </footer>
+
     <script>
-        function startQuiz(topic) {
-            if (topic) {
-                alert(`Starting quiz for: ${topic}`);
+        let currentQuestionIndex = 0;
+        let selectedQuestions = [];
+        let answers = [];
+
+        // Define questions and image links
+        const questions = [
+            { question: "Do you enjoy working outdoors?", type: "Farming", image: "path-to-your-image/hiking.png" },
+            { question: "Do you enjoy programming?", type: "Computer Programming", image: "path-to-your-image/programming.png" },
+            { question: "Are you interested in wildlife conservation?", type: "Wildlife Conservation", image: "path-to-your-image/wildlife.png" },
+            { question: "Do you enjoy designing or sketching?", type: "Graphic Design", image: "path-to-your-image/sketch.png" },
+            { question: "Do you like making music?", type: "Music Production", image: "path-to-your-image/music.png" },
+        ];
+
+        function startQuiz() {
+            document.getElementById("landing-page").classList.add("hidden");
+            document.getElementById("quiz-page").classList.remove("hidden");
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                const questionData = questions[currentQuestionIndex];
+                document.getElementById("quiz-container").innerHTML = `
+                    <div class="question-container">
+                        <img src="${questionData.image}" alt="${questionData.type}" class="question-image">
+                        <div class="question">${questionData.question}</div>
+                        <button onclick="answerQuestion('Yes')">Yes</button>
+                        <button onclick="answerQuestion('No')">No</button>
+                    </div>
+                `;
+                updateProgressBar();
             } else {
-                alert("Starting the quiz!");
+                showResult();
             }
+        }
+
+        function answerQuestion(answer) {
+            answers[currentQuestionIndex] = answer;
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function updateProgressBar() {
+            const progress = document.getElementById("progress");
+            const progressPercent = (currentQuestionIndex / questions.length) * 100;
+            progress.style.width = `${progressPercent}%`;
+        }
+
+        function showResult() {
+            document.getElementById("quiz-page").classList.add("hidden");
+            document.getElementById("result-page").classList.remove("hidden");
+
+            const chosenCareer = questions[currentQuestionIndex - 1].type;
+            document.getElementById("result").innerHTML = `<div>Your recommended career path: <strong>${chosenCareer}</strong></div>`;
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            answers = [];
+            document.getElementById("result-page").classList.add("hidden");
+            document.getElementById("landing-page").classList.remove("hidden");
         }
     </script>
 </body>
