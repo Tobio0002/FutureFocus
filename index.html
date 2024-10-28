@@ -182,7 +182,7 @@
 
         function selectRandomQuestions() {
             const combinedQuestions = Object.values(questions).flat();
-            selectedQuestions = shuffleArray(combinedQuestions).slice(0, combinedQuestions.length);
+            selectedQuestions = shuffleArray(combinedQuestions).slice(0, Math.min(combinedQuestions.length, 6)); // Get 6 random questions
         }
 
         function shuffleArray(array) {
