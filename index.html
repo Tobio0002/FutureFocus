@@ -98,6 +98,12 @@
             color: #333;
         }
 
+        .question img {
+            width: 50px; /* Adjust size as needed */
+            height: auto;
+            margin-bottom: 10px;
+        }
+
         .question button {
             padding: 12px 25px;
             margin: 10px 5px;
@@ -121,6 +127,14 @@
             color: #888;
         }
 
+        /* Logo Position */
+        .logo {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 100px; /* Adjust size as needed */
+        }
+
         /* Visibility and Transition Classes */
         .hidden {
             opacity: 0;
@@ -136,6 +150,9 @@
     </style>
 </head>
 <body>
+
+    <!-- Logo -->
+    <img src="FutureFocus.jpg" alt="Logo" class="logo">
 
     <!-- Landing Page -->
     <div class="container visible" id="landing-page">
@@ -220,8 +237,37 @@
             if (currentQuestionIndex < selectedQuestions.length) {
                 const questionData = selectedQuestions[currentQuestionIndex];
                 const questionElement = document.getElementById("quiz-container");
+                
+                // Determine image source based on question type
+                let imageSource = '';
+                switch (questionData.type) {
+                    case 'Farming':
+                        imageSource = 'hiking.jpg';
+                        break;
+                    case 'Woodwork':
+                        imageSource = 'woodmarking.jfif';
+                        break;
+                    case 'Sound Tech':
+                        imageSource = 'sound.jfif';
+                        break;
+                    case 'Digital Literacy':
+                        imageSource = 'computer.jpg';
+                        break;
+                    case 'Quantity Surveyor':
+                        imageSource = 'construction.jfif';
+                        break;
+                    case 'Art Work':
+                        imageSource = 'sketch.jpg';
+                        break;
+                    default:
+                        imageSource = ''; // Default case if needed
+                }
+
                 questionElement.innerHTML = `
-                    <div class="question">${questionData.question}</div>
+                    <div class="question">
+                        <img src="${imageSource}" alt="${questionData.type} image">
+                        ${questionData.question}
+                    </div>
                     <button onclick="answerQuestion('Yes')">Yes</button>
                     <button onclick="answerQuestion('No')">No</button>
                 `;
