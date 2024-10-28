@@ -16,7 +16,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             animation: fadeIn 1s ease-in;
         }
 
@@ -26,8 +26,9 @@
         }
 
         .container {
-            max-width: 900px;
-            padding: 30px;
+            width: 100%;
+            max-width: 1000px;
+            padding: 20px;
             background: white;
             border-radius: 15px;
             box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
@@ -44,22 +45,24 @@
 
         .logo {
             max-width: 200px;
-            margin-bottom: 20px;
+            margin: 0 auto 20px auto;
+            display: block;
         }
 
         .question-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
             margin-top: 30px;
         }
 
         .question-item {
             background-color: #f9f9f9;
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
+            cursor: pointer;
         }
 
         .question-item:hover {
@@ -70,12 +73,15 @@
             width: 100%;
             height: 150px;
             object-fit: cover;
+            border-bottom: 2px solid #ddd;
         }
 
         .question-text {
-            padding: 10px;
+            padding: 15px;
             font-weight: 600;
             color: #333;
+            text-align: center;
+            font-size: 1rem;
         }
 
         button {
@@ -105,40 +111,40 @@
         <img src="FutureFocus.png" alt="Future Focus Logo" class="logo">
         <h1>Discover Your Career Path</h1>
         <div class="question-grid">
-            <!-- Question Items -->
-            <div class="question-item">
+            <!-- Question Items with Images and Text Labels -->
+            <div class="question-item" onclick="startQuiz('Art')">
                 <img src="art.png" alt="Art" class="question-image">
                 <div class="question-text">Art</div>
             </div>
-            <div class="question-item">
+            <div class="question-item" onclick="startQuiz('Digital Literacy')">
                 <img src="computer.png" alt="Computer" class="question-image">
                 <div class="question-text">Digital Literacy</div>
             </div>
-            <div class="question-item">
+            <div class="question-item" onclick="startQuiz('Farming')">
                 <img src="hiking.png" alt="Hiking" class="question-image">
                 <div class="question-text">Farming</div>
             </div>
-            <div class="question-item">
+            <div class="question-item" onclick="startQuiz('Woodwork')">
                 <img src="machine.png" alt="Machine" class="question-image">
                 <div class="question-text">Woodwork</div>
             </div>
-            <div class="question-item">
+            <div class="question-item" onclick="startQuiz('Sound Tech')">
                 <img src="music.png" alt="Music" class="question-image">
                 <div class="question-text">Sound Tech</div>
             </div>
-            <div class="question-item">
+            <div class="question-item" onclick="startQuiz('Programming')">
                 <img src="programing.png" alt="Programming" class="question-image">
                 <div class="question-text">Programming</div>
             </div>
-            <div class="question-item">
+            <div class="question-item" onclick="startQuiz('Sketching')">
                 <img src="sketch.png" alt="Sketch" class="question-image">
                 <div class="question-text">Sketching</div>
             </div>
-            <div class="question-item">
+            <div class="question-item" onclick="startQuiz('Troubleshooting')">
                 <img src="troubleshooting.png" alt="Troubleshooting" class="question-image">
                 <div class="question-text">Troubleshooting</div>
             </div>
-            <div class="question-item">
+            <div class="question-item" onclick="startQuiz('Wildlife Management')">
                 <img src="wildlife.png" alt="Wildlife" class="question-image">
                 <div class="question-text">Wildlife Management</div>
             </div>
@@ -147,9 +153,12 @@
     </div>
 
     <script>
-        function startQuiz() {
-            // Code to transition to the quiz section
-            alert("Starting the quiz!");
+        function startQuiz(topic) {
+            if (topic) {
+                alert(`Starting quiz for: ${topic}`);
+            } else {
+                alert("Starting the quiz!");
+            }
         }
     </script>
 </body>
