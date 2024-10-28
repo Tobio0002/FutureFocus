@@ -195,9 +195,10 @@
 
         function loadQuestion() {
             if (currentQuestionIndex < selectedQuestions.length) {
+                const questionData = selectedQuestions[currentQuestionIndex];
                 const questionElement = document.getElementById("quiz-container");
                 questionElement.innerHTML = `
-                    <div class="question">${selectedQuestions[currentQuestionIndex].question}</div>
+                    <div class="question">${questionData.question}</div>
                     <button onclick="answerQuestion('Yes')">Yes</button>
                     <button onclick="answerQuestion('No')">No</button>
                 `;
@@ -244,6 +245,7 @@
         function restartQuiz() {
             currentQuestionIndex = 0;
             answers = [];
+            selectedQuestions = [];
             document.getElementById("result-page").classList.add("hidden");
             document.getElementById("landing-page").classList.remove("hidden");
         }
