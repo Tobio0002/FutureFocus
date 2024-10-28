@@ -178,10 +178,8 @@
         };
 
         function startQuiz() {
-            document.getElementById("landing-page").classList.remove("visible");
-            document.getElementById("landing-page").classList.add("hidden");
-            document.getElementById("quiz-page").classList.remove("hidden");
-            document.getElementById("quiz-page").classList.add("visible");
+            document.getElementById("landing-page").classList.replace("visible", "hidden");
+            document.getElementById("quiz-page").classList.replace("hidden", "visible");
 
             selectRandomQuestions();
             loadQuestion();
@@ -189,7 +187,7 @@
 
         function selectRandomQuestions() {
             const combinedQuestions = Object.values(questions).flat();
-            selectedQuestions = shuffleArray(combinedQuestions).slice(0, Math.min(combinedQuestions.length, 6)); // Get 6 random questions
+            selectedQuestions = shuffleArray(combinedQuestions).slice(0, 6); // Get 6 random questions
         }
 
         function shuffleArray(array) {
@@ -216,7 +214,7 @@
         }
 
         function answerQuestion(answer) {
-            answers[currentQuestionIndex] = answer;
+            answers.push({ type: selectedQuestions[currentQuestionIndex].type, answer: answer });
             currentQuestionIndex++;
             loadQuestion();
         }
@@ -230,35 +228,27 @@
         function calculateResult() {
             const careerCounts = {};
 
-            answers.forEach((answer, index) => {
-                const careerType = selectedQuestions[index].type;
-                if (!careerCounts[careerType]) {
-                    careerCounts[careerType] = 0;
-                }
+            answers.forEach(({ type, answer }) => {
                 if (answer === "Yes") {
-                    careerCounts[careerType]++;
+                    careerCounts[type] = (careerCounts[type] || 0) + 1;
                 }
             });
 
             const topCareer = Object.entries(careerCounts)
-                .sort((a, b) => b[1] - a[1])[0][0];
+                .sort((a, b) => b[1] - a[1])[0]?.[0] || "No strong preference";
 
             document.getElementById("result").innerHTML = `<div>${topCareer}</div>`;
 
-            document.getElementById("quiz-page").classList.remove("visible");
-            document.getElementById("quiz-page").classList.add("hidden");
-            document.getElementById("result-page").classList.remove("hidden");
-            document.getElementById("result-page").classList.add("visible");
+            document.getElementById("quiz-page").classList.replace("visible", "hidden");
+            document.getElementById("result-page").classList.replace("hidden", "visible");
         }
 
         function restartQuiz() {
             currentQuestionIndex = 0;
             answers = [];
             selectedQuestions = [];
-            document.getElementById("result-page").classList.remove("visible");
-            document.getElementById("result-page").classList.add("hidden");
-            document.getElementById("landing-page").classList.remove("hidden");
-            document.getElementById("landing-page").classList.add("visible");
+            document.getElementById("result-page").classList.replace("visible", "hidden");
+            document.getElementById("landing-page").classList.replace("hidden", "visible");
         }
     </script>
 </body>
