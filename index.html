@@ -27,7 +27,7 @@
         .container {
             max-width: 700px;
             padding: 40px;
-            background: #fff; /* Set background to white */
+            background: #fff;
             border-radius: 12px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
             text-align: center;
@@ -96,18 +96,18 @@
             font-weight: 500;
             margin-bottom: 20px;
             color: #333;
-            background: #ffffff; /* White background for the question */
+            background: #ffffff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .question img {
-            width: 80px; /* Increase size for visibility */
+            width: 150px;
             height: auto;
-            margin-bottom: 10px;
-            border-radius: 8px; /* Rounded corners */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .question button {
@@ -138,7 +138,7 @@
             position: fixed;
             top: 10px;
             right: 10px;
-            width: 100px; /* Adjust size as needed */
+            width: 100px;
         }
 
         /* Visibility and Transition Classes */
@@ -228,7 +228,7 @@
 
         function selectRandomQuestions() {
             const combinedQuestions = Object.values(questions).flat();
-            selectedQuestions = shuffleArray(combinedQuestions).slice(0, 6); // Get 6 random questions
+            selectedQuestions = shuffleArray(combinedQuestions).slice(0, 6);
         }
 
         function shuffleArray(array) {
@@ -244,7 +244,6 @@
                 const questionData = selectedQuestions[currentQuestionIndex];
                 const questionElement = document.getElementById("quiz-container");
                 
-                // Determine image source based on question type
                 let imageSource = '';
                 switch (questionData.type) {
                     case 'Farming':
@@ -266,7 +265,7 @@
                         imageSource = 'sketch.jpg';
                         break;
                     default:
-                        imageSource = ''; // Default case if needed
+                        imageSource = '';
                 }
 
                 questionElement.innerHTML = `
